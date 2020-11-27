@@ -62,8 +62,8 @@ async function createInputs(x){
 
     await deleteInputs();
     
-    let quesInput = `<label for="question">Question</label><br>
-    <input type="text" id="question"><br>`;
+    let quesInput = `<label for="question"></label><br>
+    <input type="text" id="question" placeholder="Question"><br>`;
     radioDiv.innerHTML = quesInput;
 
     for (let index = 1; index <= x ; index++) {
@@ -86,7 +86,7 @@ function deleteInputs(){
 
 function createChoices(e){
     //prevent default
-    e.preventDefault();
+    e.stopPropagation()
   let list = document.querySelectorAll('input[name="radioChoice"]');
 
     for (const item of list){
