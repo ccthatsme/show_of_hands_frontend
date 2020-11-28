@@ -12,7 +12,6 @@ function getChoices(array){
     let choices = [];
     for (const element of array) {
         if (element.id.indexOf('choice') !== -1) {
-            console.log('in conditional')
             choices.push(element.value)
         }
     }
@@ -34,7 +33,7 @@ function createJsonSurvey(question, choices){
                     "password": "sample"
                     }
             }
-            array.push(survey2, "threepoll")
+            array.push(survey2, "twopoll")
             return array;
         case 3:
             let survey3 = {
@@ -49,7 +48,8 @@ function createJsonSurvey(question, choices){
                     "password": "sample"
                     }
             }
-            return survey3;
+            array.push(survey3, "threepoll")
+            return array;
         case 4:
             let survey4 = {
                 "question": question,
@@ -64,8 +64,8 @@ function createJsonSurvey(question, choices){
                     "password": "sample"
                     }
             }
-            return survey4;
-
+            array.push(survey4, "fourpoll")
+            return array;
         default:
             console.log('nothing created, try again')
             break;

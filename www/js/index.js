@@ -15,14 +15,13 @@ async function createSurvey(e) {
     let choices = getChoices(numChildren);
     let jsonSurvey = createJsonSurvey(question, choices);
 
-    console.log(jsonSurvey);
-    fetch('http://localhost:8080/polls/threepoll', {
+    fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
         method: 'POST',
         headers: {
             
              'Content-Type': 'application/json'
         },
-        body: JSON.stringify(jsonSurvey)
+        body: JSON.stringify(jsonSurvey[0])
     });
 
 };
@@ -80,7 +79,6 @@ function createChoices(e){
     }
 
 };
-
 
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
