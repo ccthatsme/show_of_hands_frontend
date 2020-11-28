@@ -10,34 +10,19 @@ const radioDiv = document.getElementById('radioDiv');
 
 async function createSurvey(e) {
      e.preventDefault();
-
     let numChildren = document.getElementById("radioDiv").children;
+    let question = getQuestion(numChildren);
+    let choices = getChoices(numChildren);
+    let jsonSurvey = createJsonSurvey(question, choices);
 
-    let question = getQuestion(numChildren)
-    let choices = getChoices(numChildren)
-
-    console.log(choices)
-
-    let array = {
-    "question": question.value,
-    "choiceOne":choiceOne.value,
-    "choiceTwo":choiceTwo.value,
-    "choiceThree":choiceThree.value,
-    "user":{
-        "id": 3,
-        "userName": "jthomas",
-        "email": "jt43@gmail.com",
-        "password": "sample"
-        }
-}
-
+    console.log(jsonSurvey);
     fetch('http://localhost:8080/polls/threepoll', {
         method: 'POST',
         headers: {
             
              'Content-Type': 'application/json'
         },
-        body: JSON.stringify(array)
+        body: JSON.stringify(jsonSurvey)
     });
 
 };
@@ -85,7 +70,6 @@ function deleteInputs(){
 }
 
 function createChoices(e){
-    //prevent default
     e.stopPropagation()
   let list = document.querySelectorAll('input[name="radioChoice"]');
 
