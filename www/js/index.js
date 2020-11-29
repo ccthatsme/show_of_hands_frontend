@@ -21,6 +21,7 @@ async function createSurvey(e) {
     .then(response => response.json())
     .then(data => {
         console.log('success', data);
+        createdSurveyGen(data);
     }).catch((error) =>
     {
         console.error('Error', error);

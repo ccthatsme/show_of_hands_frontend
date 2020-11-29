@@ -1,18 +1,27 @@
 const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
-const surveySection = document.getElementById('surveySection');
 
-function createdSurveyGen(data){
+window.onload = findSurveySection;
 
-    let createdSurvey = ` <h1> ${data.question} </h1>
+function findSurveySection(){
+    const surveySection = document.getElementById('surveySection');
+}
+
+async function createdSurveyGen(data){
+    window.location.replace("survey.html")
+    let createdSurvey = `<h1> ${data.question} </h1>
     <table>
         <thead>Select</thead>
-         <tr><button>${data.choiceOne}</button></tr>
-         <tr><button>${data.choiceTwo}</button></tr>
-         <tr><button>${data.choiceThree}</button></tr>
+         <tr name="tr"><input type='submit' id="resultOne">${data.choiceOne}</input></tr>
 
+         <tr name="tr"><input type='submit' id="resultTwo">${data.choiceTwo}</input></tr>
+
+         <tr name="tr"><input type='submit' id="resultThree">${data.choiceThree}</input></tr>
     </table>`;
 
+console.log(surveySection);
+    surveySection.innerHTML = createdSurvey;
 
+    // window.location.replace("survey.html")
 
 }
