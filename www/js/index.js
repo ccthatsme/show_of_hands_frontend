@@ -1,9 +1,4 @@
  const element = document.getElementById('create');
-const question = document.getElementById('question');
-const choiceOne = document.getElementById('choice1');
-const choiceTwo = document.getElementById('choice2');
-const choiceThree = document.getElementById('choice3');
-const test = document.getElementById('test');
 const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
 
@@ -11,9 +6,9 @@ const radioDiv = document.getElementById('radioDiv');
 async function createSurvey(e) {
      e.preventDefault();
     let numChildren = document.getElementById("radioDiv").children;
-    let question = getQuestion(numChildren);
-    let choices = getChoices(numChildren);
-    let jsonSurvey = createJsonSurvey(question, choices);
+    let question = await getQuestion(numChildren);
+    let choices = await getChoices(numChildren);
+    let jsonSurvey = await createJsonSurvey(question, choices);
 
     fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
         method: 'POST',
@@ -22,6 +17,13 @@ async function createSurvey(e) {
              'Content-Type': 'application/json'
         },
         body: JSON.stringify(jsonSurvey[0])
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('success', data);
+    }).catch((error) =>
+    {
+        console.error('Error', error);
     });
 
 };
@@ -46,8 +48,7 @@ async function createInputs(x){
 
     await deleteInputs();
     
-    let quesInput = `<label for="question"></label><br>
-    <input type="text" id="question" placeholder="Question"><br>`;
+    let quesInput = questionInput;
     radioDiv.innerHTML = quesInput;
 
     for (let index = 1; index <= x ; index++) {
