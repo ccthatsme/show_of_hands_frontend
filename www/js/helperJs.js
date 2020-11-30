@@ -1,18 +1,31 @@
 const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
-const surveySection = document.getElementById('surveySection');
 
-function createdSurveyGen(data){
+window.onload = findSurveySection;
 
-    let createdSurvey = ` <h1> ${data.question} </h1>
-    <table>
-        <thead>Select</thead>
-         <tr><button>${data.choiceOne}</button></tr>
-         <tr><button>${data.choiceTwo}</button></tr>
-         <tr><button>${data.choiceThree}</button></tr>
+function unpackCookie(x){
 
-    </table>`;
+    let array = x.split('=');
 
+    let json = JSON.parse(array[1]);
 
+    return json;
 
+}
+
+function findSurveySection(){
+    const surveySection = document.getElementById('surveySection');
+    let x = document.cookie;
+    let json = unpackCookie(x);
+
+    let createdSurvey = `<h1>${json.question} </h1>
+    <ul style='list-style-type:none;'>
+
+    <li><input type='submit' id="choiceOne" value="${json.choiceOne}"/></li>
+    <li><input type='submit' id="choiceTwo" value="${json.choiceTwo}"/></li>
+    <li><input type='submit' id="choiceThree" value="${json.choiceThree}"/></li>
+
+    </ul>`;
+
+    surveySection.innerHTML = createdSurvey;
 }
