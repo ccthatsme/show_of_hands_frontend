@@ -3,41 +3,29 @@ const questionInput = `<label for="question"></label><br>
 
 window.onload = findSurveySection;
 
-function findSurveySection(){
-    const surveySection = document.getElementById('surveySection');
-    console.log('on load ran')
+function unpackCookie(x){
 
-    console.log(document.cookie);
-    let createdSurvey = `<h1> </h1>
-    <table>
-        <thead>Select</thead>
-         <tr name="tr"><input type='submit' id="resultOne">aasdf</input></tr>
+    let array = x.split('=');
 
-         <tr name="tr"><input type='submit' id="resultTwo"></input></tr>
+    let json = JSON.parse(array[1]);
 
-         <tr name="tr"><input type='submit' id="resultThree"></input></tr>
-    </table>`;
-console.log(surveySection);
-    surveySection.innerHTML = createdSurvey;
+    return json;
+
 }
 
-async function createdSurveyGen(e){
-    e.preventDefault();
-    window.location.replace("survey.html")
-    console.log(document.cookie);
-    let createdSurvey = `<h1> ${data.question} </h1>
-    <table>
-        <thead>Select</thead>
-         <tr name="tr"><input type='submit' id="resultOne"></input></tr>
+function findSurveySection(){
+    const surveySection = document.getElementById('surveySection');
+    let x = document.cookie;
+    let json = unpackCookie(x);
 
-         <tr name="tr"><input type='submit' id="resultTwo"></input></tr>
+    let createdSurvey = `<h1>${json.question} </h1>
+    <ul style='list-style-type:none;'>
 
-         <tr name="tr"><input type='submit' id="resultThree"></input></tr>
-    </table>`;
+    <li><input type='submit' id="choiceOne" value="${json.choiceOne}"/></li>
+    <li><input type='submit' id="choiceTwo" value="${json.choiceTwo}"/></li>
+    <li><input type='submit' id="choiceThree" value="${json.choiceThree}"/></li>
 
-console.log(surveySection);
+    </ul>`;
+
     surveySection.innerHTML = createdSurvey;
-
-    // window.location.replace("survey.html")
-
 }
