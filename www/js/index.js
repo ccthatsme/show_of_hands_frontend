@@ -1,7 +1,8 @@
  const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
-
+const questionInput = `<label for="question"></label><br>
+<input type="text" id="question" placeholder="Question"><br>`;
 
 async function createSurvey(e) {
      e.preventDefault();
@@ -21,6 +22,9 @@ async function createSurvey(e) {
     .then(response => response.json())
     .then(data => {
         document.cookie = 'survey='+JSON.stringify(data);
+        // let url = new URL(window.location);
+        // url.searchParams.set("surveyId", data.id);
+        // window.history.pushState({}, '', url);
         window.location.replace("survey.html")
     }).catch((error) =>
     {
@@ -80,6 +84,8 @@ function createChoices(e){
     }
 
 };
+
+
 
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
