@@ -25,18 +25,30 @@ const router = async () => {
     const path = await parseLocation();
     console.log(path)
     const component = 
-   await findComponenetByPath(path, routes) || {};
+   await findComponenetByPath(path, routes);
     console.log(component)
-    document.getElementById('app').innerHTML = await component.component.render;
+    // document.getElementById('app').innerHTML = await component;
 }
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 
-const findComponenetByPath = (path, routes) => {
+findComponenetByPath = (path, routes) => {
+    let found = null;
     routes.find(r => {
         console.log(r);
-        r.path.match(new RegExp(`^\\${path}$`, 'gm'))}) || undefined;
+        let regex = /^\/(survey)$/g;
+        // return r.path.match(new RegExp(`^\/(${path})$`, 'gm'))});
+        found = r.path.match(regex);
+        console.log(found);
     
+}
+   
+)
+    if(found !== null){
+    return r.component;
+}
+
+return r.component;
 }
 
 window.addEventListener('hashchange', router);
