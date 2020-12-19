@@ -1,3 +1,5 @@
+const app = document.getElementById('app');
+
 const surveyComponenet = {
     render: () => {
         return `
@@ -16,7 +18,7 @@ const ErrorComponent = {
 
 const routes = [
 
-    {path: '/survey', component: surveyComponenet,},
+    {routeName: '/survey', component: surveyComponenet,},
 
 
 ];
@@ -26,30 +28,32 @@ const router = async () => {
     console.log(path)
     const component = 
    await findComponenetByPath(path, routes);
-    console.log(component)
-    // document.getElementById('app').innerHTML = await component;
+    console.log(component.component)
+     app.innerHTML = await component.component.render();
+    
 }
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 
 findComponenetByPath = (path, routes) => {
-    let found = null;
-    routes.find(r => {
-        console.log(r);
-        let regex = /^\/(survey)$/g;
-        // return r.path.match(new RegExp(`^\/(${path})$`, 'gm'))});
-        found = r.path.match(regex);
-        console.log(found);
     
-}
-   
-)
-    if(found !== null){
-    return r.component;
-}
+    let found = routes.find(({routeName}) =>
+        // console.log(r.path);
+        // console.log(path);
+        //let regex = /^\/(survey)$/g;
+        // return r.path.match(new RegExp(`^\/(${path})$`, 'gm'))});
+       // r.path.match(regex)[0];
+        // console.log(found); 
+        // console.log(found[0]);
+        // console.log(found[0]);
+        // console.log(r.component);
 
-return r.component;
-}
+        routeName === path
+);
+console.log(found)
+return found;
+
+};
 
 window.addEventListener('hashchange', router);
 window.addEventListener('load', router);
