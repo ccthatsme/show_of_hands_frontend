@@ -30,7 +30,7 @@ const router = async () => {
    await findComponenetByPath(path, routes);
     console.log(component.component)
      app.innerHTML = await component.component.render();
-    
+    //finally this prints survey in the app section
 }
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
