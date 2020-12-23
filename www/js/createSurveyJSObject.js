@@ -1,4 +1,5 @@
 
+
 function getQuestion(array){
     for (const element of array) {
         if (element.id === 'question') {

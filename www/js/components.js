@@ -1,4 +1,10 @@
 const app = document.getElementById('app');
+const href = document.querySelector("a[href='#/survey/:surveyId']");
+
+function changeHref(){
+
+}
+
 
 const homeComponent = {
     render: () => {

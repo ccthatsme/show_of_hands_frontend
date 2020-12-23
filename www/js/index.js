@@ -4,9 +4,13 @@ const radioDiv = document.getElementById('radioDiv');
 const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
 
+window.onload = () =>{
+    //window.location.hash('#/home')
+    window.history.pushState(null, null, '#/home');
+}
+
 async function createSurvey(e) {
      e.preventDefault();
-     console.log('does it reach here?')
     let test = await getCurrentDate()
     console.log(test);
     let numChildren = document.getElementById("radioDiv").children;
@@ -25,12 +29,13 @@ async function createSurvey(e) {
     .then(response => response.json())
     .then(data => {
         let expires = getCurrentDate();
-        console.log(expires)
-        document.cookie = 'survey='+JSON.stringify(data) + ';' + ' expires=' + expires + ';  path=/;';
-        // let url = new URL(window.location);
+        //document.cookie = 'survey='+JSON.stringify(data) + ';' + ' expires=' + expires + ';  path=/;';
+         console.log(data.id);
+        let url = new URL(window.location.href + `/survey/${data.id}`);
+        console.log(url);
         // url.searchParams.set("surveyId", data.id);
-        // window.history.pushState({}, '', url);
-        window.location.replace("survey.html")
+         window.history.pushState({}, '', url);
+        // window.location.replace("survey.html")
     }).catch((error) =>
     {
         console.error('Error', error);
@@ -93,5 +98,6 @@ function createChoices(e){
 
 
 radioForm.addEventListener('click', createChoices, false);
-//element.addEventListener('click', createSurvey, false);
+element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
+//test.addEventListener()
