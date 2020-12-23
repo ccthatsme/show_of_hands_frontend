@@ -1,5 +1,13 @@
 const app = document.getElementById('app');
 
+const homeComponent = {
+    render: () => {
+        return `
+        <h1></h1>
+        `;
+    }
+};
+
 const surveyComponenet = {
     render: () => {
         return `
@@ -12,7 +20,7 @@ const surveyComponenetParam = {
     render: (id) => {
         return `
         <h1>survey</h1>
-
+        <h4>second survey</h4> 
         <h4>${id}</h4>
         `;
     }
@@ -27,8 +35,9 @@ const ErrorComponent = {
 };
 
 const routes = [
-    {routeName: '/survey/:surveyId', component: surveyComponenet,},
+    {routeName: '/survey/:surveyId', component: surveyComponenetParam,},
     {routeName: '/survey', component: surveyComponenet,},
+    {routeName: '/', component: homeComponent,},
 
     
 ];
@@ -45,19 +54,20 @@ const router = async () => {
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 
-function checkPath(routeName){
-    console.log(routeName.routeName);
-    return routeName.routeName === "/survey/:surveyId"
-}
+// function checkPath(routeName){
+//     console.log(routeName.routeName);
+//     return routeName.routeName === "/survey/:surveyId"
+// }
 
 findComponenetByPath = (path, routes) => {
     console.log(routes);
     console.log(path);
-//     let found = routes.find(({routeName}) =>
-//         routeName.trim() === path
+    let found = routes.find(({routeName}) =>{
+        console.log(routeName)
+        routeName === path
     
-// );
-let found = routes.find(checkPath);
+    });
+//let found = routes.find(checkPath);
 console.log(found)
 return found;
 
