@@ -76,7 +76,7 @@ function createJsonSurvey(question, choices){
 
 function getCurrentDate(){
     let today = new Date();
-    console.log(today.getDate())
+    //console.log(today.getDate())
     today.setTime(today.getTime() + (20*24*60*60*1000));
     return today.toUTCString();
 }

@@ -5,8 +5,8 @@ const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
 
 window.onload = () =>{
-    //window.location.hash('#/home')
-    window.history.pushState(null, null, '#/home');
+    //window.location.hash = '#/home';
+    window.history.pushState(null, null, '/#home');
 }
 
 async function createSurvey(e) {
@@ -31,10 +31,11 @@ async function createSurvey(e) {
         let expires = getCurrentDate();
         //document.cookie = 'survey='+JSON.stringify(data) + ';' + ' expires=' + expires + ';  path=/;';
          console.log(data.id);
-        let url = new URL(window.location.href + `/survey/${data.id}`);
-        console.log(url);
+        // let url = new URL(window.location.href + `/survey/${data.id}`);
+        // console.log(url);
         // url.searchParams.set("surveyId", data.id);
-         window.history.pushState({}, '', url);
+        window.location.hash = `#/survey/${data.id}`;
+         window.history.pushState({}, '', `/#survey/${data.id}`);
         // window.location.replace("survey.html")
     }).catch((error) =>
     {
@@ -101,3 +102,27 @@ radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
 //test.addEventListener()
+
+window.addEventListener('hashchange', function(){
+   if(location.hash.includes('#survey/')){
+       //this works
+console.log('got here');
+let url = location.hash.substring(1);
+console.log(url);
+// survey/125
+let parts = url.split('/');
+let params = [];
+let obj = {};
+
+obj[parts[0]] = parts[1];
+
+params.push(obj);
+
+app.innerHTML = `<h1>survey</h1>
+<br>
+<h4>${params[0].survey}</h4>`;
+
+console.log(params[0].survey);
+   }
+});
+
