@@ -105,7 +105,7 @@ element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
 //test.addEventListener()
 
-window.addEventListener('hashchange', function(){
+window.addEventListener('hashchange', async () => {
    if(location.hash.includes('#survey/')){
        //this works
 console.log('got here');
@@ -120,7 +120,7 @@ obj[parts[0]] = parts[1];
 
 params.push(obj);
 
-let survey = getSurveyById(params[0].survey)
+let survey = await getSurveyById(params[0].survey)
 
 console.log(survey);
 //render(myTemplate(survey), app);
