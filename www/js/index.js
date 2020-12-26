@@ -1,3 +1,5 @@
+
+
  const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
@@ -118,9 +120,14 @@ obj[parts[0]] = parts[1];
 
 params.push(obj);
 
+let survey = getSurveyById(params[0].survey)
+
+console.log(survey);
+//render(myTemplate(survey), app);
+
 app.innerHTML = `<h1>survey</h1>
 <br>
-<h4>${params[0].survey}</h4>`;
+<h4>${survey.id}</h4>`;
 
 console.log(params[0].survey);
    }

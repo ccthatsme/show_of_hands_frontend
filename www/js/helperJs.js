@@ -1,7 +1,7 @@
 // const questionInput = `<label for="question"></label><br>
 // <input type="text" id="question" placeholder="Question"><br>`;
 
-window.onload = findSurveySection;
+//window.onload = findSurveySection;
 
 function unpackCookie(x){
 
