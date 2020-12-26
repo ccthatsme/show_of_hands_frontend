@@ -29,7 +29,7 @@ async function createSurvey(e) {
         body: JSON.stringify(jsonSurvey[0])
     })
     .then(response => response.json())
-    .then(data => {
+    .then(function(data){
         let expires = getCurrentDate();
         //document.cookie = 'survey='+JSON.stringify(data) + ';' + ' expires=' + expires + ';  path=/;';
          console.log(data.id);
@@ -39,6 +39,7 @@ async function createSurvey(e) {
         window.location.hash = `#/survey/${data.id}`;
          window.history.pushState({}, '', `/#survey/${data.id}`);
         // window.location.replace("survey.html")
+        return data;
     }).catch((error) =>
     {
         console.error('Error', error);
@@ -105,31 +106,60 @@ element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
 //test.addEventListener()
 
-window.addEventListener('hashchange', async () => {
-   if(location.hash.includes('#survey/')){
-       //this works
-console.log('got here');
-let url = location.hash.substring(1);
-console.log(url);
-// survey/125
-let parts = url.split('/');
-let params = [];
-let obj = {};
+async function getParams(){
+    if(location.hash.includes('#survey/')){
+        //this works
+ console.log('got here');
+ let url = location.hash.substring(1);
+ console.log(url);
+ // survey/125
+ let parts = url.split('/');
+ let params = [];
+ let obj = {};
+ 
+ obj[parts[0]] = parts[1];
+ 
+ params.push(obj);
+ 
+ let survey = await getSurveyById(params[0].survey)
+ 
+ console.log(survey);
 
-obj[parts[0]] = parts[1];
+ return survey;
+}
+return
+};
 
-params.push(obj);
+window.addEventListener('hashchange', getParams);
 
-let survey = await getSurveyById(params[0].survey)
+// window.addEventListener('hashchange', async () => {
+//    if(location.hash.includes('#survey/')){
+//        //this works
+// console.log('got here');
+// let url = location.hash.substring(1);
+// console.log(url);
+// // survey/125
+// let parts = url.split('/');
+// let params = [];
+// let obj = {};
 
-console.log(survey);
-//render(myTemplate(survey), app);
+// obj[parts[0]] = parts[1];
 
-app.innerHTML = `<h1>survey</h1>
-<br>
-<h4>${survey.id}</h4>`;
+// params.push(obj);
 
-console.log(params[0].survey);
-   }
-});
+// let survey = await getSurveyById(params[0].survey)
 
+// console.log(survey);
+// //render(myTemplate(survey), app);
+
+// app.innerHTML = `<h1>survey</h1>
+// <br>
+// <h4>${survey.id}</h4>`;
+
+// console.log(params[0].survey);
+//    }
+// });
+
+function samplePrint(){
+    return 'hellow world';
+}
