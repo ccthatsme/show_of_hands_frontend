@@ -130,7 +130,7 @@ async function getParams(){
 return
 };
 
-window.addEventListener('hashchange', getParams);
+// window.addEventListener('hashchange', getParams);
 
 // window.addEventListener('hashchange', async () => {
 //    if(location.hash.includes('#survey/')){
@@ -159,7 +159,3 @@ window.addEventListener('hashchange', getParams);
 // console.log(params[0].survey);
 //    }
 // });
-
-function samplePrint(){
-    return 'hellow world';
-}

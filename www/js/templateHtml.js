@@ -4,7 +4,8 @@ import {html, render} from '../../node_modules/lit-html/lit-html.js';
 const myTemplate = (params) => html`
 <h1>survey</h1>
 
-<h4>survey id = ${params}</h4>
+<h4>survey id = ${params.id}</h4>
+<h4>survey question is ${params.question}</h4>
 `;
 
  //render(myTemplate(getParams()), document.getElementById('example1'));
@@ -17,8 +18,13 @@ const myTemplate = (params) => html`
 // element.addEventListener('click', render(myTemplate('hello'), document.getElementById('example1')), false);
 
 window.addEventListener('hashchange', function(){
-    render(myTemplate('hello'), document.getElementById('example1'));
+    let displaySurvey = getParams();
+    displaySurvey.then(function(result){
+        console.log(result);
+    render(myTemplate(result), document.getElementById('example1'));
 })
+    });
+
 
 export {render};
 
