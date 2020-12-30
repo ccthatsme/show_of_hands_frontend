@@ -1,6 +1,4 @@
-
-
- const element = document.getElementById('create');
+const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
 const questionInput = `<label for="question"></label><br>
@@ -14,7 +12,6 @@ window.onload = () =>{
 async function createSurvey(e) {
      e.preventDefault();
     let test = await getCurrentDate()
-    console.log(test);
     let numChildren = document.getElementById("radioDiv").children;
     let question = await getQuestion(numChildren);
     let choices = await getChoices(numChildren);
@@ -30,15 +27,8 @@ async function createSurvey(e) {
     })
     .then(response => response.json())
     .then(function(data){
-        let expires = getCurrentDate();
-        //document.cookie = 'survey='+JSON.stringify(data) + ';' + ' expires=' + expires + ';  path=/;';
-         console.log(data.id);
-        // let url = new URL(window.location.href + `/survey/${data.id}`);
-        // console.log(url);
-        // url.searchParams.set("surveyId", data.id);
         window.location.hash = `#/survey/${data.id}`;
          window.history.pushState({}, '', `/#survey/${data.id}`);
-        // window.location.replace("survey.html")
         return data;
     }).catch((error) =>
     {
@@ -55,10 +45,8 @@ function getSurvey(e){
              'Content-Type': 'application/json'
         }
     }).then(function(response) {
-        console.log(response);
         return response.json();
     }).then(function(polls){
-        console.log(polls);
         return polls;
     })};
 
@@ -104,15 +92,12 @@ function createChoices(e){
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
-//test.addEventListener()
 
 async function getParams(){
     if(location.hash.includes('#survey/')){
-        //this works
- console.log('got here');
+    
  let url = location.hash.substring(1);
- console.log(url);
- // survey/125
+
  let parts = url.split('/');
  let params = [];
  let obj = {};
@@ -122,40 +107,7 @@ async function getParams(){
  params.push(obj);
  
  let survey = await getSurveyById(params[0].survey)
- 
- console.log(survey);
-
  return survey;
 }
 return
 };
-
-// window.addEventListener('hashchange', getParams);
-
-// window.addEventListener('hashchange', async () => {
-//    if(location.hash.includes('#survey/')){
-//        //this works
-// console.log('got here');
-// let url = location.hash.substring(1);
-// console.log(url);
-// // survey/125
-// let parts = url.split('/');
-// let params = [];
-// let obj = {};
-
-// obj[parts[0]] = parts[1];
-
-// params.push(obj);
-
-// let survey = await getSurveyById(params[0].survey)
-
-// console.log(survey);
-// //render(myTemplate(survey), app);
-
-// app.innerHTML = `<h1>survey</h1>
-// <br>
-// <h4>${survey.id}</h4>`;
-
-// console.log(params[0].survey);
-//    }
-// });

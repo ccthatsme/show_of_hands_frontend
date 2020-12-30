@@ -1,5 +1,6 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
+import {html, render, nothing} from '../../node_modules/lit-html/lit-html.js';
 
+const emptyTemplate = () => html`<div>${nothing}</div>`;
 
 const myTemplate = (params) => html`
 <h1>survey</h1>
@@ -8,24 +9,13 @@ const myTemplate = (params) => html`
 <h4>survey question is ${params.question}</h4>
 `;
 
- //render(myTemplate(getParams()), document.getElementById('example1'));
-
-// async function waitResolve(){
-//   let survey = await createSurvey();
-// return survey;
-// }
-
-// element.addEventListener('click', render(myTemplate('hello'), document.getElementById('example1')), false);
-
 window.addEventListener('hashchange', function(){
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
-        console.log(result);
     render(myTemplate(result), document.getElementById('example1'));
+    render(emptyTemplate, document.getElementById('totalSurvey'));
 })
     });
 
 
 export {render};
-
-//try in this file to have your haschange conditoional, the above was succesfull in only displaying the template on a hashchanbge event like creating a survey
