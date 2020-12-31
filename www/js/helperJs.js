@@ -1,8 +1,3 @@
-// const questionInput = `<label for="question"></label><br>
-// <input type="text" id="question" placeholder="Question"><br>`;
-
-window.onload = findSurveySection;
-
 function unpackCookie(x){
 
     let array = x.split('=');
@@ -16,7 +11,7 @@ function deleteCookie(){
     document.cookie = 'survey=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 }
 
-// localhost:8080/polls/56
+
  function getSurveyById(id){
     
   return fetch('http://localhost:8080/polls?' + new URLSearchParams({
@@ -34,7 +29,7 @@ function deleteCookie(){
             throw new Error('Server response wasn\'t OK');
         }
     }).then( function(poll){
-        console.log(poll);
+
         return poll;
     })};
 
@@ -54,7 +49,6 @@ async function findSurveySection(){
     
 
 let json2 = await getSurveyById(myParam);
-console.log(json2);
     
     let createdSurvey = `<h1>${json2.question} </h1>
     <ul style='list-style-type:none;'>
