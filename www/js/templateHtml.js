@@ -1,7 +1,5 @@
 import {html, render, nothing} from '../../node_modules/lit-html/lit-html.js';
 
-const emptyTemplate = () => html`<div>${nothing}</div>`;
-
 const myTemplate = (params) => html`
 <h1>survey</h1>
 
@@ -13,7 +11,7 @@ window.addEventListener('hashchange', function(){
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
     render(myTemplate(result), document.getElementById('example1'));
-    render(emptyTemplate, document.getElementById('totalSurvey'));
+    render('', document.getElementById('totalSurvey'));
 })
     });
 
