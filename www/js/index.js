@@ -97,7 +97,7 @@ async function getParams(){
     if(location.hash.includes('#survey/')){
     
  let url = location.hash.substring(1);
-
+console.log(url);
  let parts = url.split('/');
  let params = [];
  let obj = {};

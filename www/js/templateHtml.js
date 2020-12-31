@@ -10,6 +10,7 @@ const myTemplate = (params) => html`
 window.addEventListener('hashchange', function(){
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
+        console.log(result);
     render(myTemplate(result), document.getElementById('example1'));
     render('', document.getElementById('totalSurvey'));
 })
