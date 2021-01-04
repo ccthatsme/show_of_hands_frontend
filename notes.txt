@@ -3,3 +3,6 @@ will need to store the data in a cookie i think and pass to new page
 12-5 json is undefined in the getsurveybyid method check that out
 
 ok so trying to clear the buttons and choices when you go to your specific survey but the nothing is not working...
+
+12/31 ok so merged in my branch to main
+now im trying to figure out the #/#survey hash thing, working in index.js

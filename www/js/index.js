@@ -27,8 +27,10 @@ async function createSurvey(e) {
     })
     .then(response => response.json())
     .then(function(data){
-        window.location.hash = `#/survey/${data.id}`;
-         window.history.pushState({}, '', `/#survey/${data.id}`);
+        window.location.hash = `/#survey/${data.id}`;
+        console.log(window.location.hash);
+        console.log(location.hash)
+         window.history.pushState(null, null, `/#survey/${data.id}`);
         return data;
     }).catch((error) =>
     {
@@ -88,7 +90,13 @@ function createChoices(e){
 };
 
 
-
+// window.addEventListener('popstate', function(popStateEvent){
+//     console.log("popstate event fired");
+//     console.log(popStateEvent.state);
+//     if(location.hash.includes('#/#')){
+//         window.history.pushState(null, null, `/#survey`);
+//     }
+// });
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
