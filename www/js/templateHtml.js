@@ -8,6 +8,7 @@ const myTemplate = (params) => html`
 `;
 
 window.addEventListener('hashchange', function(){
+    console.log(location.hash);
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
         console.log(result);

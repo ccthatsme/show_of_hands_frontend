@@ -3,6 +3,7 @@ const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
 const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
+const backButton = document.getElementById('back');
 
 window.onload = () =>{
     //window.location.hash = '#/home';
@@ -90,13 +91,23 @@ function createChoices(e){
 };
 
 
-// window.addEventListener('popstate', function(popStateEvent){
-//     console.log("popstate event fired");
-//     console.log(popStateEvent.state);
-//     if(location.hash.includes('#/#')){
-//         window.history.pushState(null, null, `/#survey`);
-//     }
-// });
+window.addEventListener('popstate', function(popStateEvent){
+    console.log("popstate event fired");
+    console.log(popStateEvent.state);
+    if(location.hash.includes('#/#')){
+        let url = location.hash.substring(3);
+    
+    let parts = url.split('/');
+    let params = [];
+    let obj = {};
+ 
+    obj[parts[0]] = parts[1];
+ 
+ params.push(obj);
+        window.history.pushState(null, null, `/#survey/${params[0].survey}`);
+    }
+});
+
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
@@ -117,5 +128,11 @@ console.log(url);
  let survey = await getSurveyById(params[0].survey)
  return survey;
 }
+
 return
 };
+
+function goingBack(){
+    history.back();
+    
+}
