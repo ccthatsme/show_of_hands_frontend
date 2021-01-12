@@ -7,7 +7,8 @@ const backButton = document.getElementById('back');
 
 window.onload = () =>{
     //window.location.hash = '#/home';
-    window.history.pushState(null, null, '/#home');
+    var data = 'home';
+    window.history.pushState({data}, null, '/#home');
 }
 
 async function createSurvey(e) {
@@ -31,7 +32,7 @@ async function createSurvey(e) {
         window.location.hash = `/#survey/${data.id}`;
         console.log(window.location.hash);
         console.log(location.hash)
-         window.history.pushState(null, null, `/#survey/${data.id}`);
+         window.history.pushState('state test', null, `/#survey/${data.id}`);
         return data;
     }).catch((error) =>
     {
@@ -133,6 +134,6 @@ return
 };
 
 function goingBack(){
-    history.back();
-    
+    window.history.go(-1);
+    console.log(history);
 }
