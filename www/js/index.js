@@ -8,7 +8,7 @@ const backButton = document.getElementById('back');
 window.onload = () =>{
     //window.location.hash = '#/home';
     var data = 'home';
-    window.history.pushState({data}, null, '/#home');
+    window.history.replaceState(data, null, '/#home');
 }
 
 async function createSurvey(e) {
@@ -32,7 +32,7 @@ async function createSurvey(e) {
         window.location.hash = `/#survey/${data.id}`;
         console.log(window.location.hash);
         console.log(location.hash)
-         window.history.pushState('state test', null, `/#survey/${data.id}`);
+         window.history.pushState('state test from initial survey creation', null, `/#survey/${data.id}`);
         return data;
     }).catch((error) =>
     {
@@ -93,6 +93,7 @@ function createChoices(e){
 
 
 window.addEventListener('popstate', function(popStateEvent){
+    popStateEvent.preventDefault();
     console.log("popstate event fired");
     console.log(popStateEvent.state);
     if(location.hash.includes('#/#')){
@@ -107,6 +108,11 @@ window.addEventListener('popstate', function(popStateEvent){
  params.push(obj);
         window.history.pushState(null, null, `/#survey/${params[0].survey}`);
     }
+
+    else if(location.hash.includes('#home')){
+console.log('home popstate');
+    }
+
 });
 
 radioForm.addEventListener('click', createChoices, false);

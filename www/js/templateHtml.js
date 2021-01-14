@@ -18,6 +18,7 @@ window.addEventListener('hashchange', function(){
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
         console.log(result);
+        window.history.pushState('pushstate from url typeing in change', null, `/#survey/${result.id}`)
     render(myTemplate(result), document.getElementById('example1'));
     render('', document.getElementById('totalSurvey'));
 })}
@@ -26,6 +27,20 @@ else if(location.hash.includes('#home')){
     render(homeTemplate, document.getElementById('example1'));
 }
     });
+
+window.addEventListener('popstate', (e) => {
+
+if(e.state === 'home'){
+    console.log('home popping from template module');
+}
+else if(e.state === 'pushstate from url typeing in change'){
+    console.log('url typeing popping from template module');
+}
+
+else if(e.state === 'state test from initial survey creation'){
+    console.log('state test from initial survey creation popping from template module');
+}
+});
 
 
 export {render};
