@@ -7,10 +7,10 @@ const myTemplate = (params) => html`
 <h4>survey question is ${params.question}</h4>
 `;
 
-const homeTemplate = () => html`
-<h1>im home</h1>`;
+const homeTemplate = html`<h1>im home</h1>`;
 
 window.addEventListener('hashchange', function(){
+    console.log(history.state);
     if(location.hash.includes('#survey/')){
 
     
@@ -18,7 +18,7 @@ window.addEventListener('hashchange', function(){
     let displaySurvey = getParams();
     displaySurvey.then(function(result){
         console.log(result);
-        window.history.pushState('pushstate from url typeing in change', null, `/#survey/${result.id}`)
+        window.history.replaceState('pushstate from url typeing in change', null, `/#survey/${result.id}`)
     render(myTemplate(result), document.getElementById('example1'));
     render('', document.getElementById('totalSurvey'));
 })}
@@ -29,7 +29,7 @@ else if(location.hash.includes('#home')){
     });
 
 window.addEventListener('popstate', (e) => {
-
+console.log(e.state);
 if(e.state === 'home'){
     console.log('home popping from template module');
 }
@@ -37,8 +37,9 @@ else if(e.state === 'pushstate from url typeing in change'){
     console.log('url typeing popping from template module');
 }
 
-else if(e.state === 'state test from initial survey creation'){
+else if(e.state === '/#home'){
     console.log('state test from initial survey creation popping from template module');
+    render(homeTemplate, document.getElementById('example1'));
 }
 });
 

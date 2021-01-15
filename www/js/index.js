@@ -8,7 +8,7 @@ const backButton = document.getElementById('back');
 window.onload = () =>{
     //window.location.hash = '#/home';
     var data = 'home';
-    window.history.replaceState(data, null, '/#home');
+    history.replaceState('/#home', "home", '/#home');
 }
 
 async function createSurvey(e) {
@@ -29,10 +29,10 @@ async function createSurvey(e) {
     })
     .then(response => response.json())
     .then(function(data){
-        window.location.hash = `/#survey/${data.id}`;
-        console.log(window.location.hash);
-        console.log(location.hash)
-         window.history.pushState('state test from initial survey creation', null, `/#survey/${data.id}`);
+         window.location.hash = `/#survey/${data.id}`;
+        // console.log(window.location.hash);
+        // console.log(location.hash)
+         window.history.pushState(data, null, `/#survey/${data.id}`);
         return data;
     }).catch((error) =>
     {
@@ -92,28 +92,28 @@ function createChoices(e){
 };
 
 
-window.addEventListener('popstate', function(popStateEvent){
-    popStateEvent.preventDefault();
-    console.log("popstate event fired");
-    console.log(popStateEvent.state);
-    if(location.hash.includes('#/#')){
-        let url = location.hash.substring(3);
+// window.addEventListener('popstate', function(popStateEvent){
+//     //popStateEvent.preventDefault();
+//     console.log("popstate event fired");
+//     console.log(popStateEvent.state);
+//     if(location.hash.includes('#/#')){
+//         let url = location.hash.substring(3);
     
-    let parts = url.split('/');
-    let params = [];
-    let obj = {};
+//     let parts = url.split('/');
+//     let params = [];
+//     let obj = {};
  
-    obj[parts[0]] = parts[1];
+//     obj[parts[0]] = parts[1];
  
- params.push(obj);
-        window.history.pushState(null, null, `/#survey/${params[0].survey}`);
-    }
+//  params.push(obj);
+//         window.history.pushState(null, null, `/#survey/${params[0].survey}`);
+//     }
 
-    else if(location.hash.includes('#home')){
-console.log('home popstate');
-    }
+//     else if(location.hash.includes('#home')){
+// console.log('home popstate');
+//     }
 
-});
+// });
 
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
