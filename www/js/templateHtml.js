@@ -1,4 +1,4 @@
-import {html, render, nothing} from '../../node_modules/lit-html/lit-html.js';
+import {html, render, nothing, TemplateResult} from '../../node_modules/lit-html/lit-html.js';
 const mySurveyButton = document.getElementById('mysurvey');
 
 const myTemplate = (params) => html`
@@ -9,6 +9,16 @@ const myTemplate = (params) => html`
 `;
 
 const homeTemplate = html`<h1>im home</h1>`;
+
+const surveyListTemplate = (survey) => html`
+<h1>${survey.question}</h1>
+`;
+
+// function replaceSurveyList(surveys){
+
+//     let template: () => TemplateResult; 
+
+// }
 
 window.addEventListener('hashchange', function(){
     console.log(history.state);
@@ -77,11 +87,32 @@ else if(e.state === '/#home'){
 
 element.addEventListener('click', createSurvey, false);
 
-mySurveyButton.addEventListener('click', getList, false);
+mySurveyButton.addEventListener('click', async () => {
 
-function getList(e){
-    e.preventDefault();
-    fetch('http://localhost:8080/polls/all_surveys?' + new URLSearchParams({
+let templateList = creatingTemplateList();
+
+templateList.then(function(result){
+    render(result, document.getElementById('example1'));
+})
+
+});
+
+async function creatingTemplateList(){
+    let array1 = await getList();
+    console.log(array1);
+    const templates = array1.map(element => {
+        return html`<h3>${element.question}</h3>`;});
+
+        const ulTemplate = html`<h1>${templates}</h1>`;
+console.log(ulTemplate)
+        return ulTemplate;
+};
+
+
+
+function getList(){
+    //e.preventDefault();
+    return fetch('http://localhost:8080/polls/all_surveys?' + new URLSearchParams({
         userId: 3
     }), {
         method: 'GET',
@@ -92,7 +123,6 @@ function getList(e){
     }).then(function(response) {
         return response.json();
     }).then(function(polls){
-        console.log(polls);
         return polls;
     })};
 

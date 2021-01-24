@@ -92,8 +92,8 @@ function createChoices(e){
 };
 
 radioForm.addEventListener('click', createChoices, false);
-element.addEventListener('click', createSurvey, false);
-test.addEventListener('click', getSurvey, false);
+// element.addEventListener('click', createSurvey, false);
+// test.addEventListener('click', getSurvey, false);
 
 async function getParams(){
     if(location.hash.includes('#survey/')){
