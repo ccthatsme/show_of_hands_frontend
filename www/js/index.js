@@ -40,19 +40,19 @@ window.onload = () =>{
 //     });
 // };
 
-function getSurvey(e){
-    e.preventDefault();
-    fetch('http://localhost:8080/polls', {
-        method: 'GET',
-        headers: {
+// function getSurvey(e){
+//     e.preventDefault();
+//     fetch('http://localhost:8080/polls', {
+//         method: 'GET',
+//         headers: {
             
-             'Content-Type': 'application/json'
-        }
-    }).then(function(response) {
-        return response.json();
-    }).then(function(polls){
-        return polls;
-    })};
+//              'Content-Type': 'application/json'
+//         }
+//     }).then(function(response) {
+//         return response.json();
+//     }).then(function(polls){
+//         return polls;
+//     })};
 
 async function createInputs(x){
 

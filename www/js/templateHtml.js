@@ -1,4 +1,5 @@
 import {html, render, nothing} from '../../node_modules/lit-html/lit-html.js';
+const mySurveyButton = document.getElementById('mysurvey');
 
 const myTemplate = (params) => html`
 <h1>survey</h1>
@@ -75,6 +76,25 @@ else if(e.state === '/#home'){
 });
 
 element.addEventListener('click', createSurvey, false);
+
+mySurveyButton.addEventListener('click', getList, false);
+
+function getList(e){
+    e.preventDefault();
+    fetch('http://localhost:8080/polls/all_surveys?' + new URLSearchParams({
+        userId: 3
+    }), {
+        method: 'GET',
+        headers: {
+            
+             'Content-Type': 'application/json'
+        },
+    }).then(function(response) {
+        return response.json();
+    }).then(function(polls){
+        console.log(polls);
+        return polls;
+    })};
 
 export {render};
 
