@@ -6,3 +6,10 @@ ok so trying to clear the buttons and choices when you go to your specific surve
 
 12/31 ok so merged in my branch to main
 now im trying to figure out the #/#survey hash thing, working in index.js
+
+1/7 added the forward and back buttons, although it does not go all the way back home, maybe because I need to add a render template?
+
+1/11 this popstate state is not being passed over for some reason from home
+after creating the curvey 'survey test' does get passed!
+
+1/16/21 check out the video gaur associates hash in url explained, so if you change the href with a hash??

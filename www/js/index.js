@@ -3,54 +3,56 @@ const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
 const questionInput = `<label for="question"></label><br>
 <input type="text" id="question" placeholder="Question"><br>`;
+const backButton = document.getElementById('back');
 
 window.onload = () =>{
     //window.location.hash = '#/home';
-    window.history.pushState(null, null, '/#home');
+    var data = 'home';
+    history.replaceState('/#home', "home", '/#home');
 }
 
-async function createSurvey(e) {
-     e.preventDefault();
-    let test = await getCurrentDate()
-    let numChildren = document.getElementById("radioDiv").children;
-    let question = await getQuestion(numChildren);
-    let choices = await getChoices(numChildren);
-    let jsonSurvey = await createJsonSurvey(question, choices);
+// async function createSurvey(e) {
+//      e.preventDefault();
+//     let test = await getCurrentDate()
+//     let numChildren = document.getElementById("radioDiv").children;
+//     let question = await getQuestion(numChildren);
+//     let choices = await getChoices(numChildren);
+//     let jsonSurvey = await createJsonSurvey(question, choices);
 
-    fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
-        method: 'POST',
-        headers: {
+//     fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
+//         method: 'POST',
+//         headers: {
             
-             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonSurvey[0])
-    })
-    .then(response => response.json())
-    .then(function(data){
-        window.location.hash = `/#survey/${data.id}`;
-        console.log(window.location.hash);
-        console.log(location.hash)
-         window.history.pushState(null, null, `/#survey/${data.id}`);
-        return data;
-    }).catch((error) =>
-    {
-        console.error('Error', error);
-    });
-};
+//              'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(jsonSurvey[0])
+//     })
+//     .then(response => response.json())
+//     .then(function(data){
+//         window.location.hash = `#survey/${data.id}`;
+//         // console.log(window.location.hash);
+//         // console.log(location.hash)
+//          window.history.pushState(data, null, `#survey/${data.id}`);
+//         return data;
+//     }).catch((error) =>
+//     {
+//         console.error('Error', error);
+//     });
+// };
 
-function getSurvey(e){
-    e.preventDefault();
-    fetch('http://localhost:8080/polls', {
-        method: 'GET',
-        headers: {
+// function getSurvey(e){
+//     e.preventDefault();
+//     fetch('http://localhost:8080/polls', {
+//         method: 'GET',
+//         headers: {
             
-             'Content-Type': 'application/json'
-        }
-    }).then(function(response) {
-        return response.json();
-    }).then(function(polls){
-        return polls;
-    })};
+//              'Content-Type': 'application/json'
+//         }
+//     }).then(function(response) {
+//         return response.json();
+//     }).then(function(polls){
+//         return polls;
+//     })};
 
 async function createInputs(x){
 
@@ -89,14 +91,6 @@ function createChoices(e){
 
 };
 
-
-// window.addEventListener('popstate', function(popStateEvent){
-//     console.log("popstate event fired");
-//     console.log(popStateEvent.state);
-//     if(location.hash.includes('#/#')){
-//         window.history.pushState(null, null, `/#survey`);
-//     }
-// });
 radioForm.addEventListener('click', createChoices, false);
 element.addEventListener('click', createSurvey, false);
 test.addEventListener('click', getSurvey, false);
@@ -117,5 +111,16 @@ console.log(url);
  let survey = await getSurveyById(params[0].survey)
  return survey;
 }
+
 return
 };
+
+function goingBack(){
+    window.history.go(-1);
+    console.log(history);
+}
+
+function goingForward(){
+    window.history.forward();
+    console.log(history);
+}
