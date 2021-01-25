@@ -83,35 +83,56 @@ else if(e.state === '/#home'){
     console.log('state test from initial survey creation popping from template module');
     render(homeTemplate, document.getElementById('example1'));
 }
+
+else if(e.state === 'mysurvey'){
+    let templateList = creatingTemplateList();
+    
+    templateList.then(function(result){
+        render(result, document.getElementById('example1'));
+});
+    
+}
 });
 
 element.addEventListener('click', createSurvey, false);
 
-mySurveyButton.addEventListener('click', async () => {
+mySurveyButton.addEventListener('click', displaySurveys, false);
 
-let templateList = creatingTemplateList();
+async function displaySurveys(){
+    window.history.pushState('mysurvey', null, `#mysurveys`);
 
-templateList.then(function(result){
-    render(result, document.getElementById('example1'));
-})
+    let templateList = creatingTemplateList();
 
-});
+    templateList.then(function(result){
+        render(result, document.getElementById('example1'));
+});};
 
 async function creatingTemplateList(){
     let array1 = await getList();
-    console.log(array1);
-    const templates = array1.map(element => {
-        return html`<h3>${element.question}</h3>`;});
 
-        const ulTemplate = html`<h1>${templates}</h1>`;
-console.log(ulTemplate)
+    const templates = array1.map(element => {
+        return html`
+        <tr>
+        <td>${element.question}</td>
+        </tr>`;});
+
+        const ulTemplate = html`
+        <h1>Here are Your surveys</h1>
+        
+        <table>
+        <tr>
+            <th>Question</th>
+        </tr>
+            ${templates}
+        </table>`;
+
+    
         return ulTemplate;
 };
 
 
 
 function getList(){
-    //e.preventDefault();
     return fetch('http://localhost:8080/polls/all_surveys?' + new URLSearchParams({
         userId: 3
     }), {
