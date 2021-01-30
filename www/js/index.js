@@ -1,31 +1,31 @@
 const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
 const radioDiv = document.getElementById('radioDiv');
-const questionInput = `<label for="question"></label><br>
-<input type="text" id="question" placeholder="Question"><br>`;
+const questionInput = `<label class="radioDivChildren" for="question"></label><br class="radioDivChildren">
+<input class="radioDivChildren" type="text" id="question" placeholder="Question"><br class="radioDivChildren">`;
 const backButton = document.getElementById('back');
 
 window.onload = () =>{
     history.replaceState('/#home', "home", '/#home');
 }
 
-async function createInputs(x){
+// async function createInputs(x){
 
-    await deleteInputs();
+//     await deleteInputs();
     
-    let quesInput = questionInput;
-    radioDiv.innerHTML = quesInput;
+//     let quesInput = questionInput;
+//     radioDiv.innerHTML = quesInput;
 
-    for (let index = 1; index <= x ; index++) {
-       let input = document.createElement('input')
+//     for (let index = 1; index <= x ; index++) {
+//        let input = document.createElement('input')
 
-        input.setAttribute('placeholder',`choice${index}`);
-        input.setAttribute('id', `choice${index}`)
+//         input.setAttribute('placeholder',`choice${index}`);
+//         input.setAttribute('id', `choice${index}`)
 
-        radioDiv.appendChild(input);
-    }
+//         radioDiv.appendChild(input);
+//     }
 
-}
+// }
 
 function deleteInputs(){
     
@@ -34,17 +34,17 @@ function deleteInputs(){
       }
 }
 
-function createChoices(e){
-    e.stopPropagation()
-  let list = document.querySelectorAll('input[name="radioChoice"]');
+// function createChoices(e){
+//     e.stopPropagation()
+//   let list = document.querySelectorAll('input[name="radioChoice"]');
 
-    for (const item of list){
-        if(item.checked){
-            createInputs(item.value);
-        }
-    }
+//     for (const item of list){
+//         if(item.checked){
+//             createInputs(item.value);
+//         }
+//     }
 
-};
+// };
 
 async function getParams(){
     if(location.hash.includes('#survey/')){
@@ -76,4 +76,4 @@ function goingForward(){
     console.log(history);
 }
 
-radioForm.addEventListener('click', createChoices, false);
+//radioForm.addEventListener('click', createChoices, false);
