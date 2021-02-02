@@ -1,5 +1,6 @@
 import {html, render, nothing, TemplateResult} from '../../node_modules/lit-html/lit-html.js';
 const mySurveyButton = document.getElementById('mysurvey');
+const radioDivParent = document.getElementById('radioDivParent');
 
 
 const myTemplate = (params) => html`
@@ -25,26 +26,45 @@ const actionButtons = html`
 `;
 
 
-// function clickHandler(e){
-//     console.log(e);
-// }
-
 async function createInputs(x){
-
     await deleteInputs();
     
-    let quesInput = questionInput;
-    radioDiv.innerHTML = quesInput;
+    if(!document.body.contains(document.getElementById('radioDiv'))){
 
-    for (let index = 1; index <= x ; index++) {
-       let input = document.createElement('input')
+        let radioDiva = document.createElement('div');
+        radioDiva.setAttribute('id', 'radioDiv');
+        let quesInput = questionInput;
 
-        input.setAttribute('placeholder',`choice${index}`);
-        input.setAttribute('id', `choice${index}`)
-        input.setAttribute('class', `radioDivChildren`);
+        radioDivParent.appendChild(radioDiva);
 
-        radioDiv.appendChild(input);
+        radioDiva.innerHTML = quesInput;
+
+        for (let index = 1; index <= x ; index++) {
+            let input = document.createElement('input')
+     
+             input.setAttribute('placeholder',`choice${index}`);
+             input.setAttribute('id', `choice${index}`)
+             input.setAttribute('class', `radioDivChildren`);
+     
+             radioDiva.appendChild(input);
+         }
     }
+
+    else{
+        let quesInput = questionInput;
+        radioDiv.innerHTML = quesInput;
+
+        for (let index = 1; index <= x ; index++) {
+            let input = document.createElement('input')
+     
+             input.setAttribute('placeholder',`choice${index}`);
+             input.setAttribute('id', `choice${index}`)
+             input.setAttribute('class', `radioDivChildren`);
+     
+             radioDiv.appendChild(input);
+         }
+    }
+
 
 }
 
@@ -68,6 +88,12 @@ async function createSurvey(e) {
        let choices = await getChoices(numChildren);
        let jsonSurvey = await createJsonSurvey(question, choices);
    
+       const radioDivChildren = document.getElementsByClassName('radioDivChildren');
+
+       Array.from(radioDivChildren).forEach(element => {
+        element.remove();
+        });
+
        fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
            method: 'POST',
            headers: {
@@ -97,17 +123,16 @@ async function displaySurveys(){
 
     const radioDivChildren = document.getElementsByClassName('radioDivChildren');
 
+    // const rd = document.getElementById('radioDivParent');
+
+    //  rd.remove();
+
     Array.from(radioDivChildren).forEach(element => {
         element.remove();
     });
 
-    // radioDivChildren.array.forEach(element => {
-    //     console.log(element);
-    //     element.remove();
-    // });
-
     templateList.then(await function(result){
-        render('', document.getElementById('radioDiv'));
+        render('', document.getElementById('radioDivParent'));
         render('', document.getElementById('totalSurvey'));
         render('', document.getElementById('actionButtons'));
         render(result, document.getElementById('example1'));
@@ -155,6 +180,7 @@ window.addEventListener('popstate', (e) => {
 
         if(e.state === '/#home'){
            
+            console.log('hello!!')
            
             render(homeTemplate, document.getElementById('totalSurvey'));
             render(actionButtons, document.getElementById('actionButtons'));
@@ -166,14 +192,38 @@ window.addEventListener('popstate', (e) => {
             
             templateList.then(function(result){
                 render('', document.getElementById('totalSurvey'));
-                render('', document.getElementById('radioDiv'));
+
+                if(document.body.contains(document.getElementById('radioDiv'))){
+                    console.log('remove radioDiv if you pop to mysurvey')
+                    const radioDivChildren = document.getElementsByClassName('radioDivChildren');
+
+                    Array.from(radioDivChildren).forEach(element => {
+                     element.remove();
+                     });
+                    // render('', document.getElementById('radioDiv'));
+                }
+
+                if(document.body.contains(document.getElementById('actionButtons'))){
+                    render('', document.getElementById('actionButtons'));
+                }
+
+                // render('', document.getElementById('radioDiv'));
                 render(result, document.getElementById('example1'));
         });
 }
 
 else if(e.state !== 'mysurvey' || e.state !== '/#home'){
+
+    const radioDivChildren = document.getElementsByClassName('radioDivChildren');
+
+    Array.from(radioDivChildren).forEach(element => {
+     element.remove();
+     });
+
              render('', document.getElementById('totalSurvey'));
             render('', document.getElementById('actionButtons'));
+            // render('', document.getElementById('radioDiv'));
+            // render('', document.getElementById('radioDivParent'));
             render(myTemplate(e.state), document.getElementById('example1'));
             // render(myTemplate(e.state), document.getElementById('example1'));
 }
@@ -186,29 +236,6 @@ element.addEventListener('click', createSurvey, false);
 mySurveyButton.addEventListener('click', displaySurveys, false);
 
 radioForm.addEventListener('click', createChoices, false);
-
-// window.addEventListener('hashchange', function(){
-//     console.log('hashchange');
-//             if(location.hash.includes('#survey/')){
-//                 let displaySurvey = getParams();
-//                 displaySurvey.then(function(result){
-//                 render(myTemplate(result), document.getElementById('example1'));
-//                 render('', document.getElementById('totalSurvey'));
-//                 render('', document.getElementById('radioDiv'));
-//             })}
-            
-//             else if(location.hash.includes('#home')){
-                
-//                 render(homeTemplate, document.getElementById('totalSurvey'));
-// }
-
-// else if(location.hash.includes('#mysurveys')) {
-//     render('', document.getElementById('totalSurvey'));
-//     render('', document.getElementById('radioDiv'));
-//     render('', document.getElementById('actionButtons'));
-// }
-
-// });
 
 export {render};
 

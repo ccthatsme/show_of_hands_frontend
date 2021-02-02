@@ -1,6 +1,6 @@
 const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
-const radioDiv = document.getElementById('radioDiv');
+// const radioDiv = document.getElementById('radioDiv');
 const questionInput = `<label class="radioDivChildren" for="question"></label><br class="radioDivChildren">
 <input class="radioDivChildren" type="text" id="question" placeholder="Question"><br class="radioDivChildren">`;
 const backButton = document.getElementById('back');
@@ -28,10 +28,15 @@ window.onload = () =>{
 // }
 
 function deleteInputs(){
-    
+    let radioDiv = document.getElementById('radioDiv');
+
+    if(radioDiv !== null){
+
+    console.log('deleting inputs')
     while(radioDiv.children.length !== 0)  {
         radioDiv.removeChild(radioDiv.lastChild);
       }
+    }
 }
 
 // function createChoices(e){
