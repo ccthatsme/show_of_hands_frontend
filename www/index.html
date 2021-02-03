@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" name="viewport">
        
         <title>Show of Hands</title>
     </head>
@@ -18,25 +18,31 @@
 
         <div id="totalSurvey">
 
-            <div id="radioSurvey">
-            
+          <div id="radioSurvey">
             <label>How Many Choices do you Need?
-                <input type="radio" name="radioChoice" value="2">2
-                <input type="radio" name="radioChoice"  value="3">3
-                <input type="radio" name="radioChoice"  value="4">4
-                    
+            <input type="radio" name="radioChoice" value="2">2
+            <input type="radio" name="radioChoice"  value="3">3
+            <input type="radio" name="radioChoice"  value="4">4
+                
             </label><br>
-        </div>
+            
+            
+            </div>
+           
         
+        
+          
+        
+        </div>
+
+        <div id="radioDivParent">
         <div id="radioDiv">
 
-        </div>
-
-           
-          <div id="app">
-
-        </div>
           
+        </div>
+        </div>
+        
+        <div id="actionButtons">
           <button id="create">Create!</button>
           <button id="test">test fetch!</button>
         </div>
@@ -44,9 +50,15 @@
           <div id="example1">
               
           </div>
-          <div id="app">
+          <!-- <div id="app">
 
-        </div>
+        </div> -->
+        <script>
+
+      function clickHandler(){
+      console.log('testing the clickhandlers');
+        }
+        </script>
           <script src="js/helperJs.js"></script>
           <script src="js/createSurveyJSObject.js"></script>
           <script src="js/index.js"></script>

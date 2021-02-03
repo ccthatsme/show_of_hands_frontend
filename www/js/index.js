@@ -1,115 +1,71 @@
 const element = document.getElementById('create');
 const radioForm = document.getElementById('radioSurvey');
-const radioDiv = document.getElementById('radioDiv');
-const questionInput = `<label for="question"></label><br>
-<input type="text" id="question" placeholder="Question"><br>`;
+// const radioDiv = document.getElementById('radioDiv');
+const questionInput = `<label class="radioDivChildren" for="question"></label><br class="radioDivChildren">
+<input class="radioDivChildren" type="text" id="question" placeholder="Question"><br class="radioDivChildren">`;
 const backButton = document.getElementById('back');
 
 window.onload = () =>{
-    //window.location.hash = '#/home';
-    var data = 'home';
     history.replaceState('/#home', "home", '/#home');
 }
 
-// async function createSurvey(e) {
-//      e.preventDefault();
-//     let test = await getCurrentDate()
-//     let numChildren = document.getElementById("radioDiv").children;
-//     let question = await getQuestion(numChildren);
-//     let choices = await getChoices(numChildren);
-//     let jsonSurvey = await createJsonSurvey(question, choices);
+// async function createInputs(x){
 
-//     fetch('http://localhost:8080/polls/'+jsonSurvey[1], {
-//         method: 'POST',
-//         headers: {
-            
-//              'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(jsonSurvey[0])
-//     })
-//     .then(response => response.json())
-//     .then(function(data){
-//         window.location.hash = `#survey/${data.id}`;
-//         // console.log(window.location.hash);
-//         // console.log(location.hash)
-//          window.history.pushState(data, null, `#survey/${data.id}`);
-//         return data;
-//     }).catch((error) =>
-//     {
-//         console.error('Error', error);
-//     });
-// };
-
-// function getSurvey(e){
-//     e.preventDefault();
-//     fetch('http://localhost:8080/polls', {
-//         method: 'GET',
-//         headers: {
-            
-//              'Content-Type': 'application/json'
-//         }
-//     }).then(function(response) {
-//         return response.json();
-//     }).then(function(polls){
-//         return polls;
-//     })};
-
-async function createInputs(x){
-
-    await deleteInputs();
+//     await deleteInputs();
     
-    let quesInput = questionInput;
-    radioDiv.innerHTML = quesInput;
+//     let quesInput = questionInput;
+//     radioDiv.innerHTML = quesInput;
 
-    for (let index = 1; index <= x ; index++) {
-       let input = document.createElement('input')
+//     for (let index = 1; index <= x ; index++) {
+//        let input = document.createElement('input')
 
-        input.setAttribute('placeholder',`choice${index}`);
-        input.setAttribute('id', `choice${index}`)
+//         input.setAttribute('placeholder',`choice${index}`);
+//         input.setAttribute('id', `choice${index}`)
 
-        radioDiv.appendChild(input);
-    }
+//         radioDiv.appendChild(input);
+//     }
 
-}
+// }
 
 function deleteInputs(){
-    
+    let radioDiv = document.getElementById('radioDiv');
+
+    if(radioDiv !== null){
+
+    console.log('deleting inputs')
     while(radioDiv.children.length !== 0)  {
         radioDiv.removeChild(radioDiv.lastChild);
       }
+    }
 }
 
-function createChoices(e){
-    e.stopPropagation()
-  let list = document.querySelectorAll('input[name="radioChoice"]');
+// function createChoices(e){
+//     e.stopPropagation()
+//   let list = document.querySelectorAll('input[name="radioChoice"]');
 
-    for (const item of list){
-        if(item.checked){
-            createInputs(item.value);
-        }
-    }
+//     for (const item of list){
+//         if(item.checked){
+//             createInputs(item.value);
+//         }
+//     }
 
-};
-
-radioForm.addEventListener('click', createChoices, false);
-element.addEventListener('click', createSurvey, false);
-test.addEventListener('click', getSurvey, false);
+// };
 
 async function getParams(){
     if(location.hash.includes('#survey/')){
     
- let url = location.hash.substring(1);
-console.log(url);
- let parts = url.split('/');
- let params = [];
- let obj = {};
+        let url = location.hash.substring(1);
+   
+        let parts = url.split('/');
+        let params = [];
+        let obj = {};
  
- obj[parts[0]] = parts[1];
+        obj[parts[0]] = parts[1];
  
- params.push(obj);
+        params.push(obj);
  
- let survey = await getSurveyById(params[0].survey)
- return survey;
+        let survey = await getSurveyById(params[0].survey)
+    return survey;
 }
 
 return
@@ -124,3 +80,5 @@ function goingForward(){
     window.history.forward();
     console.log(history);
 }
+
+//radioForm.addEventListener('click', createChoices, false);
