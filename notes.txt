@@ -20,3 +20,5 @@ after creating the curvey 'survey test' does get passed!
 ok so we need the buttons to come along with the ride too on the home page
 
 1/29/21 ok so now the mysurveys renders without the input choices, that looks good, but the input choices stay behind at other pages as well, try to use the same tactic on those pages with the remove method
+
+2/2 ok so I got the template to render based on if you fill out a 3 or 4 survey. now need to fire an event to record the response

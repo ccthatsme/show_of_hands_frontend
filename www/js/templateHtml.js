@@ -3,12 +3,38 @@ const mySurveyButton = document.getElementById('mysurvey');
 const radioDivParent = document.getElementById('radioDivParent');
 
 
-const myTemplate = (params) => html`
+const myTemplate = (params) => {
+
+   if(typeof params.choiceFour != 'undefined'){
+    return html`
     <h1>survey</h1>
 
-    <h4>survey id = ${params.id}</h4>
-    <h4>survey question is ${params.question}</h4>
+    <h4>${params.question}</h4>
+
+    <button>${params.choiceOne}</button>
+    <button>${params.choiceTwo}</button>
+    <button>${params.choiceThree}</button>
+    <button>${params.choiceFour}</button>
 `;
+}
+
+    else if(params.choiceThree != 'undefined'){
+        return html`
+        <h1>survey</h1>
+
+        <h4>${params.question}</h4>
+
+        <button>${params.choiceOne}</button>
+        <button>${params.choiceTwo}</button>
+        <button>${params.choiceThree}</button>
+`;
+}
+
+    else if (params.choiceTwo !== 'undefined'){
+        return html`<div>test</div>`;
+}
+
+};
 
 const homeTemplate = html`
 <div id="radioAurvey" @click=${createChoices}>
