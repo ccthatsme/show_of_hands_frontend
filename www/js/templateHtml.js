@@ -1,6 +1,7 @@
 import {html, render, nothing, TemplateResult} from '../../node_modules/lit-html/lit-html.js';
 const mySurveyButton = document.getElementById('mysurvey');
 const radioDivParent = document.getElementById('radioDivParent');
+let surveyChoices = null;
 
 
 const myTemplate = (params) => {
@@ -18,19 +19,21 @@ const myTemplate = (params) => {
 `;
 }
 
-    else if(params.choiceThree != 'undefined'){
+    else if(typeof params.choiceThree != 'undefined'){
         return html`
         <h1>survey</h1>
 
         <h4>${params.question}</h4>
 
+        <div id="surveyChoices" @click=${getChoiceSelection}>
         <button>${params.choiceOne}</button>
         <button>${params.choiceTwo}</button>
         <button>${params.choiceThree}</button>
+        </div>
 `;
 }
 
-    else if (params.choiceTwo !== 'undefined'){
+    else if (typeof params.choiceTwo !== 'undefined'){
         return html`<div>test</div>`;
 }
 
@@ -51,6 +54,11 @@ const actionButtons = html`
 <button id="create" @click=${createSurvey}>Create!</button>
 `;
 
+function getChoiceSelection(e){
+    console.log(e);
+    console.log(e.target.innerText);
+    console.log('clicked choice');
+}
 
 async function createInputs(x){
     await deleteInputs();
@@ -135,6 +143,7 @@ async function createSurvey(e) {
             render('', document.getElementById('radioDiv'));
             render('', document.getElementById('actionButtons'));
             render(myTemplate(data), document.getElementById('example1'));
+            surveyChoices = document.getElementById('surveyChoices');
            return data;
        }).catch((error) =>
        {
@@ -262,6 +271,8 @@ element.addEventListener('click', createSurvey, false);
 mySurveyButton.addEventListener('click', displaySurveys, false);
 
 radioForm.addEventListener('click', createChoices, false);
+
+// surveyChoices.addEventListener('click', getChoiceSelection, false);
 
 export {render};
 
