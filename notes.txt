@@ -24,3 +24,5 @@ ok so we need the buttons to come along with the ride too on the home page
 2/2 ok so I got the template to render based on if you fill out a 3 or 4 survey. now need to fire an event to record the response
 
 2/3/21 ok so seleting a choice from the survey is getting the event to fire
+
+2/4/21 ok so I can get the result from the choice click, now need to somehow feed it back into the put request

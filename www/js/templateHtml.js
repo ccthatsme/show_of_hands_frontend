@@ -26,9 +26,9 @@ const myTemplate = (params) => {
         <h4>${params.question}</h4>
 
         <div id="surveyChoices" @click=${getChoiceSelection}>
-        <button>${params.choiceOne}</button>
-        <button>${params.choiceTwo}</button>
-        <button>${params.choiceThree}</button>
+        <button id="choiceOne">${params.choiceOne}</button>
+        <button id="choiceTwo">${params.choiceTwo}</button>
+        <button id="choiceThree">${params.choiceThree}</button>
         </div>
 `;
 }
@@ -55,9 +55,47 @@ const actionButtons = html`
 `;
 
 function getChoiceSelection(e){
-    console.log(e);
-    console.log(e.target.innerText);
-    console.log('clicked choice');
+    console.log(e.target.id);
+    let choiceSelected = e.target.id;
+    let result = 0;
+    let resultRecording = null;
+
+
+   switch (choiceSelected) {
+       case "choiceOne":
+           result++;
+           resultRecording ={"resultRecording": "resultOne", "result": result };
+           break;
+
+        case "choiceTwo":
+            result++
+            resultRecording ={"resultRecording": "resultTwo", "result": result };
+            break;
+        
+        case "choiceThree":
+            result++;
+            resultRecording ={"resultRecording": "resultThree", "result": result };
+            break;
+
+       default:
+           break;
+   }
+
+   console.log(resultRecording);
+
+   recordChoice(resultRecording);
+    
+}
+
+function recordChoice(resultRecording){
+    fetch('http://localhost:8080/polls/submit_three_poll', {
+           method: 'PUT',
+           headers: {
+               
+                'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(jsonSurvey[0])
+       })
 }
 
 async function createInputs(x){
