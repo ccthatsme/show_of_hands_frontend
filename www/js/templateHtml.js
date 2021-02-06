@@ -87,7 +87,20 @@ function getChoiceSelection(e){
     
 }
 
-function recordChoice(resultRecording){
+async function recordChoice(resultRecording){
+
+    let surveyId = window.location.hash.substring(8,11);
+
+    let survey = await getSurveyById(surveyId);
+
+    for (const prop in survey){
+        if (prop === resultRecording.resultRecording){
+            survey[prop] = resultRecording.result;
+        }
+    }
+
+    console.log(survey);
+
     fetch('http://localhost:8080/polls/submit_three_poll', {
            method: 'PUT',
            headers: {

@@ -26,3 +26,5 @@ ok so we need the buttons to come along with the ride too on the home page
 2/3/21 ok so seleting a choice from the survey is getting the event to fire
 
 2/4/21 ok so I can get the result from the choice click, now need to somehow feed it back into the put request
+
+2/5/21 so doing a get request for the survey and then editing it, next have to fix the fetch in the recording function, right direction keep going
