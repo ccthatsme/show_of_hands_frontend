@@ -93,13 +93,18 @@ async function recordChoice(resultRecording){
 
     let survey = await getSurveyById(surveyId);
 
-    for (const prop in survey){
-        if (prop === resultRecording.resultRecording){
-            survey[prop] = resultRecording.result;
-        }
-    }
+    // for (const prop in survey){
+    //     if (prop === resultRecording.resultRecording){
+    //         survey[prop] = resultRecording.result;
+    //     }
+    // }
 
-    console.log(survey);
+    if(survey.hasOwnProperty(resultRecording.resultRecording)) {
+        console.log(survey[resultRecording.resultRecording]);
+        survey[resultRecording.resultRecording]++;
+        console.log(survey[resultRecording.resultRecording]);
+    };
+
 
     fetch('http://localhost:8080/polls/submit_three_poll', {
            method: 'PUT',
@@ -107,8 +112,20 @@ async function recordChoice(resultRecording){
                
                 'Content-Type': 'application/json'
            },
-           body: JSON.stringify(jsonSurvey[0])
-       })
+           body: JSON.stringify(survey)
+       }).then( function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Server response wasn\'t OK');
+        }
+    }).then( function(poll){
+            console.log(poll);
+        return poll;
+    }).catch(function(error) {
+        alert(error);
+    });
+
 }
 
 async function createInputs(x){

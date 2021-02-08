@@ -28,3 +28,7 @@ ok so we need the buttons to come along with the ride too on the home page
 2/4/21 ok so I can get the result from the choice click, now need to somehow feed it back into the put request
 
 2/5/21 so doing a get request for the survey and then editing it, next have to fix the fetch in the recording function, right direction keep going
+
+2/6/21 editing back end code to handle checking what attribute changed then just add to that
+
+2/7/21 so it looks like on initial tests, the survey is correctly updating with the selection you make!
