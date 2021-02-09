@@ -1,14 +1,43 @@
 import {html, render, nothing, TemplateResult} from '../../node_modules/lit-html/lit-html.js';
 const mySurveyButton = document.getElementById('mysurvey');
 const radioDivParent = document.getElementById('radioDivParent');
+let surveyChoices = null;
 
 
-const myTemplate = (params) => html`
+const myTemplate = (params) => {
+
+   if(typeof params.choiceFour != 'undefined'){
+    return html`
     <h1>survey</h1>
 
-    <h4>survey id = ${params.id}</h4>
-    <h4>survey question is ${params.question}</h4>
+    <h4>${params.question}</h4>
+
+    <button>${params.choiceOne}</button>
+    <button>${params.choiceTwo}</button>
+    <button>${params.choiceThree}</button>
+    <button>${params.choiceFour}</button>
 `;
+}
+
+    else if(typeof params.choiceThree != 'undefined'){
+        return html`
+        <h1>survey</h1>
+
+        <h4>${params.question}</h4>
+
+        <div id="surveyChoices" @click=${getChoiceSelection}>
+        <button id="choiceOne">${params.choiceOne}</button>
+        <button id="choiceTwo">${params.choiceTwo}</button>
+        <button id="choiceThree">${params.choiceThree}</button>
+        </div>
+`;
+}
+
+    else if (typeof params.choiceTwo !== 'undefined'){
+        return html`<div>test</div>`;
+}
+
+};
 
 const homeTemplate = html`
 <div id="radioAurvey" @click=${createChoices}>
@@ -25,6 +54,79 @@ const actionButtons = html`
 <button id="create" @click=${createSurvey}>Create!</button>
 `;
 
+function getChoiceSelection(e){
+    console.log(e.target.id);
+    let choiceSelected = e.target.id;
+    let result = 0;
+    let resultRecording = null;
+
+
+   switch (choiceSelected) {
+       case "choiceOne":
+           result++;
+           resultRecording ={"resultRecording": "resultOne", "result": result };
+           break;
+
+        case "choiceTwo":
+            result++
+            resultRecording ={"resultRecording": "resultTwo", "result": result };
+            break;
+        
+        case "choiceThree":
+            result++;
+            resultRecording ={"resultRecording": "resultThree", "result": result };
+            break;
+
+       default:
+           break;
+   }
+
+   console.log(resultRecording);
+
+   recordChoice(resultRecording);
+    
+}
+
+async function recordChoice(resultRecording){
+
+    let surveyId = window.location.hash.substring(8,11);
+
+    let survey = await getSurveyById(surveyId);
+
+    // for (const prop in survey){
+    //     if (prop === resultRecording.resultRecording){
+    //         survey[prop] = resultRecording.result;
+    //     }
+    // }
+
+    if(survey.hasOwnProperty(resultRecording.resultRecording)) {
+        console.log(survey[resultRecording.resultRecording]);
+        survey[resultRecording.resultRecording]++;
+        console.log(survey[resultRecording.resultRecording]);
+    };
+
+
+    fetch('http://localhost:8080/polls/submit_three_poll', {
+           method: 'PUT',
+           headers: {
+               
+                'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(survey)
+       }).then( function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Server response wasn\'t OK');
+        }
+    }).then( function(poll){
+            console.log(poll);
+        return poll;
+    }).catch(function(error) {
+        alert(error);
+    });
+
+}
 
 async function createInputs(x){
     await deleteInputs();
@@ -109,6 +211,7 @@ async function createSurvey(e) {
             render('', document.getElementById('radioDiv'));
             render('', document.getElementById('actionButtons'));
             render(myTemplate(data), document.getElementById('example1'));
+            surveyChoices = document.getElementById('surveyChoices');
            return data;
        }).catch((error) =>
        {
@@ -236,6 +339,8 @@ element.addEventListener('click', createSurvey, false);
 mySurveyButton.addEventListener('click', displaySurveys, false);
 
 radioForm.addEventListener('click', createChoices, false);
+
+// surveyChoices.addEventListener('click', getChoiceSelection, false);
 
 export {render};
 
