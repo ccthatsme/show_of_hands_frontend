@@ -3,6 +3,9 @@ const mySurveyButton = document.getElementById('mysurvey');
 const radioDivParent = document.getElementById('radioDivParent');
 let surveyChoices = null;
 
+const resultArray = ["resultOne", "resultTwo", "resultThree", "resultFour"];
+const choiceArray = ["choiceOne", "choiceTwo", "choiceThree", "choiceFour"];
+
 
 const myTemplate = (params) => {
 
@@ -243,12 +246,22 @@ async function displaySurveys(){
 
 async function creatingTemplateList(){
     let array1 = await getList();
-
     const templates = array1.map(element => {
+
         return html`
         <tr>
         <td>${element.question}</td>
-        </tr>`;});
+        ${element.choiceOne !== undefined ?
+            html`<td>${element.choiceOne}(${element.resultOne})</td>` : nothing}
+        ${element.choiceTwo !== undefined ?
+            html`<td>${element.choiceTwo}(${element.resultTwo})</td>` : nothing}
+        ${element.choiceThree !== undefined ?
+            html`<td>${element.choiceThree}(${element.resultThree})</td>` : nothing}
+        ${element.choiceFour !== undefined ?
+            html`<td>${element.choiceFour}(${element.resultFour})</td>` : nothing}
+      
+        </tr>`;
+    });
 
         const ulTemplate = html`
         <h1>Here are Your surveys</h1>
@@ -256,6 +269,7 @@ async function creatingTemplateList(){
         <table>
         <tr>
             <th>Question</th>
+            <th>Choices and Results</th>
         </tr>
             ${templates}
         </table>`;
