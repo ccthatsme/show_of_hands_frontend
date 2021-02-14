@@ -32,3 +32,5 @@ ok so we need the buttons to come along with the ride too on the home page
 2/6/21 editing back end code to handle checking what attribute changed then just add to that
 
 2/7/21 so it looks like on initial tests, the survey is correctly updating with the selection you make!
+
+2/11/21 conditional rendering for my surveys works decent, rendering nothing for choice 4, shoudl make these surveys clickable to then go and record your response?
