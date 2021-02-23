@@ -34,3 +34,7 @@ ok so we need the buttons to come along with the ride too on the home page
 2/7/21 so it looks like on initial tests, the survey is correctly updating with the selection you make!
 
 2/11/21 conditional rendering for my surveys works decent, rendering nothing for choice 4, shoudl make these surveys clickable to then go and record your response?
+
+2/17/21 ok got a jwt to print, now I need to figure out how to work with it
+
+2/21/21 i think its adding the filer before??
